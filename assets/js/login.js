@@ -1,8 +1,7 @@
 const usuarioLogin = document.getElementById("usuario-login");
 const senhaLogin = document.getElementById("senha-login");
 const botaoLogin = document.getElementById("btn-login");
-const botaoFecharModal = document.querySelector(".close");
-const botaoRecuperarSenha = document.getElementById("recuperar-senha");
+const botaoFecharModal = document.querySelectorAll(".close");
 let usuariosCadastrados = JSON.parse(localStorage.getItem("usuarios")) || [];
 
 function realizarLogin(event) {
@@ -40,9 +39,11 @@ function realizarLogin(event) {
 }
 
 function recuperarSenha(event) {
-  event.preventDefault()
-  abrirModal("Enviamos um email com as instruções para recuperação da senha!");
-  botaoFecharModal.addEventListener("click", fecharModal);
+  event.preventDefault();
+  let usuarioRecuperar = document.getElementById('usuario-recuperar').value
+  let palavraChaveRecuperar = document.getElementById('palavra-chave-recuperar').value
+
+  
 }
 
 function abrirModal(texto) {
@@ -52,9 +53,17 @@ function abrirModal(texto) {
   textoModal.textContent = texto;
 }
 
+function abrirModalRecuperar(event) {
+  event.preventDefault();
+  let modalRecuperar = document.querySelector(".modal-recuperar");
+  modalRecuperar.classList.add("ativo");
+}
+
 function fecharModal() {
   let modal = document.querySelector(".modal");
+  let modalRecuperar = document.querySelector(".modal-recuperar");
   modal.classList.remove("ativo");
+  modalRecuperar.classList.remove("ativo");
 }
 
 function desbugar() {
@@ -70,4 +79,10 @@ document.addEventListener("keydown", function (event) {
 });
 
 botaoLogin.addEventListener("click", realizarLogin);
-botaoRecuperarSenha.addEventListener("click", recuperarSenha);
+
+const btnModalRecuperar = document.getElementById("recuperar-senha");
+btnModalRecuperar.addEventListener("click", abrirModalRecuperar);
+
+botaoFecharModal.forEach((botao) => {
+  botao.addEventListener("click", fecharModal);
+});

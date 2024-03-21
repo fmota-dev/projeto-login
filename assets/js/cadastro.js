@@ -1,5 +1,6 @@
 const usuarioCadastro = document.getElementById("usuario-cadastro");
 const senhaCadastro = document.getElementById("senha-cadastro");
+const inputPalavraChave = document.getElementById("palavra-chave");
 const botaoCadastrar = document.getElementById("btn-cadastrar");
 const inputTermos = document.getElementById("termos-e-condicoes");
 const botaoFecharModal = document.querySelector(".close");
@@ -9,6 +10,7 @@ function realizarCadastro(event) {
   event.preventDefault();
   const usuario = usuarioCadastro.value;
   const senha = senhaCadastro.value;
+  const palavraChave = inputPalavraChave.value;
 
   // se usuario não estiver cadastrado roda o if
   if (
@@ -18,7 +20,7 @@ function realizarCadastro(event) {
   ) {
     abrirModal("Usuário já cadastrado!");
   } else if (usuario && senha && inputTermos.checked) {
-    usuariosCadastrados.push({ usuario, senha });
+    usuariosCadastrados.push({ usuario, senha, palavraChave });
     salvarLocalStorage();
     abrirModal("Cadastro realizado com sucesso!");
     botaoFecharModal.addEventListener("click", fecharModal);
