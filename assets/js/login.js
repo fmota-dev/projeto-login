@@ -2,6 +2,7 @@ const usuarioLogin = document.getElementById("usuario-login");
 const senhaLogin = document.getElementById("senha-login");
 const botaoLogin = document.getElementById("btn-login");
 const botaoFecharModal = document.querySelector(".close");
+const botaoRecuperarSenha = document.getElementById("recuperar-senha");
 let usuariosCadastrados = JSON.parse(localStorage.getItem("usuarios")) || [];
 
 function realizarLogin(event) {
@@ -38,6 +39,12 @@ function realizarLogin(event) {
   }
 }
 
+function recuperarSenha(event) {
+  event.preventDefault()
+  abrirModal("Enviamos um email com as instruções para recuperação da senha!");
+  botaoFecharModal.addEventListener("click", fecharModal);
+}
+
 function abrirModal(texto) {
   let modal = document.querySelector(".modal");
   modal.classList.add("ativo");
@@ -63,3 +70,4 @@ document.addEventListener("keydown", function (event) {
 });
 
 botaoLogin.addEventListener("click", realizarLogin);
+botaoRecuperarSenha.addEventListener("click", recuperarSenha);
