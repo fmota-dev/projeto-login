@@ -40,10 +40,22 @@ function realizarLogin(event) {
 
 function recuperarSenha(event) {
   event.preventDefault();
-  let usuarioRecuperar = document.getElementById('usuario-recuperar').value
-  let palavraChaveRecuperar = document.getElementById('palavra-chave-recuperar').value
-
-  
+  let usuarioRecuperar = document.getElementById("usuario-recuperar").value;
+  let palavraChaveRecuperar = document.getElementById(
+    "palavra-chave-recuperar"
+  ).value;
+  let usuarioRecuperado = usuariosCadastrados.find(
+    (usuario) =>
+      usuario.usuario === usuarioRecuperar &&
+      usuario.palavraChave === palavraChaveRecuperar
+  );
+  if (usuarioRecuperado) {
+    fecharModal();
+    abrirModal(`Sua senha é: ${usuarioRecuperado.senha}`);
+  } else {
+    fecharModal();
+    abrirModal("Usuário ou palavra-chave incorretos!");
+  }
 }
 
 function abrirModal(texto) {
@@ -79,6 +91,9 @@ document.addEventListener("keydown", function (event) {
 });
 
 botaoLogin.addEventListener("click", realizarLogin);
+
+const btnRecuperar = document.getElementById("btn-recuperar");
+btnRecuperar.addEventListener("click", recuperarSenha);
 
 const btnModalRecuperar = document.getElementById("recuperar-senha");
 btnModalRecuperar.addEventListener("click", abrirModalRecuperar);
